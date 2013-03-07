@@ -1,0 +1,22 @@
+body {
+    background: #fafafa;
+}
+
+.container {
+  padding: 10px;
+  font: 12px sans-serif;
+}
+
+.tagbox {
+  border-radius: 5px;
+  float: left;
+  height: 80px;
+  width: 120px;
+  border: 1px solid #333;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.count {
+  font: 24px sans-serif;
+}
