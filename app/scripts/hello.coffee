@@ -15,10 +15,8 @@ processTags = (j) ->
   tags
 
 clicker = (e) ->
-  console.log e
-  d = processTags e.value
+  d = d3.entries(processTags e.value).sort((a,b) -> b.value.length - a.value.length)
   draw d
-filter = []
 colors = ["#fafafa","rgb(255, 118, 118)","rgb(243,243,133)","rgb(134, 204, 79)"]
 
 
@@ -27,8 +25,10 @@ d3.json "hosts.json", (e, json) ->
   draw freq
 
 draw = (data) ->
+  console.log data
   container = d3.select(".container")
-  container.selectAll(".tagbox").data(data).enter()
+  boxes = container.selectAll(".tagbox").data(data, (d) -> d.key)
+  boxes.enter()
      .append("div")
      .classed("tagbox",true)
      .style("background-color",(d) -> colors[Math.floor(Math.random() * 4)])
@@ -38,4 +38,7 @@ draw = (data) ->
      .insert("p")
      .classed("count",true)
      .text((d) -> d.value.length)
-  container.selectAll(".tagbox").data(data).exit().remove()
+     .transition()
+     .duration(500)
+     .style("opacity",1)
+  boxes.exit().transition().duration(500).style("opacity",0).remove()
